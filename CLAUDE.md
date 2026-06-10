@@ -57,3 +57,60 @@ You are a senior brand designer and web developer creating the complete website 
 - Complete sitemap and page-by-page content (full copy, not lorem ipsum).
 - A working homepage build (HTML/CSS/JS) demonstrating the visual system and animations.
 - A short design rationale: why these colors, this type, this motion language.
+
+---
+
+# Implementation Notes (current build)
+
+> The sections below document the codebase as it currently stands. They
+> supplement the brief above — when the two disagree, the brief wins.
+
+## Brand metaphor (in use)
+"Stellite" is an ultra-hard, wear- and heat-resistant cobalt-chromium alloy.
+Copy leans into **engineered, forged, hardened, built to endure** language,
+always anchored to SAP. Tagline in use: **"SAP landscapes, engineered to
+endure."** The four-step process borrows the metaphor:
+**Assay → Forge → Temper → Sustain.**
+
+## Design system
+Dark, premium, "alloy" aesthetic. No stock photography — visuals are animated
+(canvas lattice, gradient meshes, animated counters, marquee).
+- Base: near-black charcoal (`--color-ink` #07080c).
+- Primary accent: cool steel-blue (`--color-steel` #6e8bff) → lilac.
+- Sparse warm "molten" amber (`--color-molten` #ff9f4d) for sparks only.
+- Fonts: Space Grotesk (display), Inter (body), JetBrains Mono (labels).
+- Tokens live in `app/globals.css` under `@theme`.
+
+## Tech stack
+- **Next.js 15** (App Router, TypeScript) + **React 19**
+- **Tailwind CSS v4** (via `@tailwindcss/postcss`, config in `globals.css`)
+- **Framer Motion** for entrance / scroll / counter animation
+
+## Structure
+- `app/page.tsx` — composes the homepage sections.
+- `app/services/page.tsx` — the Services page (AMS, implementations, offerings).
+- `components/` — one file per section (Hero, Services, Approach, Stats,
+  Clients, CTA, Footer, Navbar, Pillars, Offerings, Engagements, ServicesHero)
+  plus `LatticeCanvas`, `Logo`, `Reveal`, `SectionHead`, `Marquee`.
+- `lib/site.ts` — all editable copy/content (nav, services, pillars, offerings,
+  engagements, stats, modules, contact email). **Edit content here, not in
+  components.**
+
+## Conventions
+- Respect `prefers-reduced-motion` (already handled in `globals.css` and the
+  canvas).
+- Keep all marketing copy SAP-specific and concrete (name modules, outcomes).
+- Run `npm run build` to type-check before considering a change done.
+
+## Build status vs. brief (open gaps)
+The current build covers the **Home** and **SAP Services** pages only. Still to
+do per the brief: **CuraTrax** section, **Development capabilities**,
+**Insights/Blog**, and **Company pages** (About, Careers, Contact). The brief's
+canonical contact is **info@stelliteworks.com** / **+1 (248) 812-2100** /
+Auburn Hills, MI — note `lib/site.ts` currently uses `hr@stelliteworks.com` per
+a later explicit instruction; reconcile before launch.
+
+## Commands
+- `npm run dev` — local dev server at http://localhost:3000
+- `npm run build` — production build + type-check
+- `npm start` — serve the production build
